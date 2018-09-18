@@ -21,9 +21,23 @@ class CuratorTest < Minitest::Test
       artist_id: "2",
       year: "1941"
     }
+    @photo_3_attrs = {
+      id: "3",
+      name: "Identical Twins, Roselle, New Jersey",
+      artist_id: "3",
+      year: "1967"
+    }
+    @photo_4_attrs = {
+      id: "4",
+      name: "Child with Toy Hand Grenade in Central Park",
+      artist_id: "3",
+      year: "1962"
+    }
 
     @photo_1 = Photograph.new(@photo_1_attrs)
     @photo_2 = Photograph.new(@photo_2_attrs)
+    @photo_3 = Photograph.new(@photo_3_attrs)
+    @photo_4 = Photograph.new(@photo_4_attrs)
   end
 
   def setup_artists
@@ -41,9 +55,17 @@ class CuratorTest < Minitest::Test
       died: "1984",
       country: "United States"
     }
+    @artist_3_attrs = {
+      id: "3",
+      name: "Diane Arbus",
+      born: "1923",
+      died: "1971",
+      country: "United States"
+    }
 
     @artist_1 = Artist.new(@artist_1_attrs)
     @artist_2 = Artist.new(@artist_2_attrs)
+    @artist_3 = Artist.new(@artist_3_attrs)
   end
 
   def test_it_exists
@@ -93,5 +115,21 @@ class CuratorTest < Minitest::Test
     @curator.add_photograph(@photo_2_attrs)
 
     assert_equal @photo_2, @curator.find_photograph_by_id("2")
+  end
+
+  def test_it_can_find_photographs_by_artist
+    Photograph.stubs(:new).returns(@photo_1, @photo_2, @photo_3, @photo_4)
+    @curator.add_photograph(@photo_1_attrs)
+    @curator.add_photograph(@photo_2_attrs)
+    @curator.add_photograph(@photo_3_attrs)
+    @curator.add_photograph(@photo_4_attrs)
+
+    Artist.stubs(:new).returns(@artist_1, @artist_2, @artist_3)
+    @curator.add_artist(@artist_1_attrs)
+    @curator.add_artist(@artist_2_attrs)
+    @curator.add_artist(@artist_3_attrs)
+
+    actual = @curator.find_photographs_by_artist(@artist_3)
+    assert_equal [@photo_3, @photo_4], actual
   end
 end
