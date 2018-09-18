@@ -144,8 +144,41 @@ class CuratorTest < Minitest::Test
     @curator.add_artist(@artist_1_attrs)
     @curator.add_artist(@artist_2_attrs)
     @curator.add_artist(@artist_3_attrs)
-    
+
     actual = @curator.artists_with_multiple_photographs
     assert_equal [@artist_3], actual
+  end
+
+  def test_it_can_find_artists_from_country
+    Photograph.stubs(:new).returns(@photo_1, @photo_2, @photo_3, @photo_4)
+    @curator.add_photograph(@photo_1_attrs)
+    @curator.add_photograph(@photo_2_attrs)
+    @curator.add_photograph(@photo_3_attrs)
+    @curator.add_photograph(@photo_4_attrs)
+
+    Artist.stubs(:new).returns(@artist_1, @artist_2, @artist_3)
+    @curator.add_artist(@artist_1_attrs)
+    @curator.add_artist(@artist_2_attrs)
+    @curator.add_artist(@artist_3_attrs)
+
+    actual = @curator.artists_from("United States")
+    assert_equal [@artist_2, @artist_3], actual
+  end
+
+  def test_it_can_find_photographs_by_artists_from_country
+    skip
+    Photograph.stubs(:new).returns(@photo_1, @photo_2, @photo_3, @photo_4)
+    @curator.add_photograph(@photo_1_attrs)
+    @curator.add_photograph(@photo_2_attrs)
+    @curator.add_photograph(@photo_3_attrs)
+    @curator.add_photograph(@photo_4_attrs)
+
+    Artist.stubs(:new).returns(@artist_1, @artist_2, @artist_3)
+    @curator.add_artist(@artist_1_attrs)
+    @curator.add_artist(@artist_2_attrs)
+    @curator.add_artist(@artist_3_attrs)
+
+    actual = @curator.photographs_taken_by_artists_from("United States")
+    assert_equal [@photo_2, @photo_3, @photo_4], actual
   end
 end
