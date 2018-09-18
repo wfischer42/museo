@@ -194,4 +194,12 @@ class CuratorTest < Minitest::Test
     assert_equal 6, @curator.artists.length
     assert_equal "Diane Arbus", @curator.artists[2].name
   end
+
+  def test_it_can_find_photos_taken_in_year_range
+    @curator.load_artists('./data/artists.csv')
+    @curator.load_photographs('./data/photographs.csv')
+    actual = @curator.photographs_taken_between(1950..1965)
+    expected = @curator.photographs.values_at(0, 3)
+    assert_equal expected, actual
+  end
 end
