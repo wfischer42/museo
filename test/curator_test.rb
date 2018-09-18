@@ -166,7 +166,7 @@ class CuratorTest < Minitest::Test
   end
 
   def test_it_can_find_photographs_by_artists_from_country
-    skip
+    # skip
     Photograph.stubs(:new).returns(@photo_1, @photo_2, @photo_3, @photo_4)
     @curator.add_photograph(@photo_1_attrs)
     @curator.add_photograph(@photo_2_attrs)

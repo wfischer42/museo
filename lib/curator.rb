@@ -46,6 +46,10 @@ class Curator
 
   def photographs_taken_by_artists_from(country)
     artists = artists_from(country)
+    artists.inject([]) do |photos, artist|
+      new_photos = find_photographs_by_artist(artist)
+      photos.concat(new_photos)
+    end
   end
 
   def artists_from(country)
