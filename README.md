@@ -9,7 +9,7 @@
 * Submit a pull request from your repository to the turingschool-examples repository
   * Make sure to put your name in your PR!
 
-### Iteration 1: Create Photograph Class
+### Iteration 1
 
 Use TDD to create a `Photograph` and an `Artist` class that respond to the following interaction pattern:
 
