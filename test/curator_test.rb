@@ -42,4 +42,34 @@ class CuratorTest < Minitest::Test
 
     assert_equal [photo_1, photo_2], actual
   end
+
+  def test_it_can_add_artist_objects_from_attribute_list
+    artist_1_attrs = {
+      id: "1",
+      name: "Henri Cartier-Bresson",
+      born: "1908",
+      died: "2004",
+      country: "France"
+    }
+    artist_2_attrs = {
+      id: "2",
+      name: "Ansel Adams",
+      born: "1902",
+      died: "1984",
+      country: "United States"
+    }
+
+    artist_1 = Artist.new(artist_1_attrs)
+    artist_2 = Artist.new(artist_2_attrs)
+
+    Artist.expects(:new).with(artist_1_attrs).returns(artist_1)
+    @curator.add_artist(artist_1_attrs)
+
+    Artist.expects(:new).with(artist_2_attrs).returns(artist_2)
+    @curator.add_artist(artist_2_attrs)
+
+    actual = @curator.artists
+
+    assert_equal [artist_1, artist_2], actual
+  end
 end
