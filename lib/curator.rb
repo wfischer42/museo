@@ -78,4 +78,18 @@ class Curator
       range.include?(photo.year.to_i)
     end
   end
+
+  def artists_photographs_by_age(artist)
+    photos = find_photographs_by_artist(artist)
+    photos.inject({}) do |age_groups, photo|
+      age = photo.year.to_i - artist.born.to_i
+      if !age_groups[age]
+        age_groups[age] = photo.name
+      else
+        new_group = [age_groups[age]] << photo.name
+        age_groups[age] = new_group.flatten
+      end
+      age_groups
+    end
+  end
 end
