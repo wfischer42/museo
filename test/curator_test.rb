@@ -166,7 +166,6 @@ class CuratorTest < Minitest::Test
   end
 
   def test_it_can_find_photographs_by_artists_from_country
-    # skip
     Photograph.stubs(:new).returns(@photo_1, @photo_2, @photo_3, @photo_4)
     @curator.add_photograph(@photo_1_attrs)
     @curator.add_photograph(@photo_2_attrs)
@@ -180,5 +179,12 @@ class CuratorTest < Minitest::Test
 
     actual = @curator.photographs_taken_by_artists_from("United States")
     assert_equal [@photo_2, @photo_3, @photo_4], actual
+  end
+
+  def test_it_can_load_photographs_from_csv_file
+    @curator.load_photographs('./data/photographs.csv')
+    assert @curator.photographs.all? {|photo| photo.class == Photograph}
+    assert_equal 4, @curator.photographs.length
+    assert_equal "Identical Twins, Roselle, New Jersey", @curator.photographs[2].name
   end
 end
