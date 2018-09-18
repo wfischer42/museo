@@ -1,0 +1,30 @@
+{
+  "Unit Tests": {
+    "coverage": {
+      "/Users/will/Turing/1module/independant_challenges/museo/lib/photograph.rb": [
+        1,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1537283902
+  }
+}
