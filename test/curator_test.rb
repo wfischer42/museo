@@ -86,4 +86,12 @@ class CuratorTest < Minitest::Test
 
     assert_equal @artist_1, @curator.find_artist_by_id("1")
   end
+
+  def test_it_can_find_photographs_by_id
+    Photograph.stubs(:new).returns(@photo_1, @photo_2)
+    @curator.add_photograph(@photo_1_attrs)
+    @curator.add_photograph(@photo_2_attrs)
+
+    assert_equal @photo_2, @curator.find_photograph_by_id("2")
+  end
 end
