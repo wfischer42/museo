@@ -18,6 +18,13 @@ class Curator
     end
   end
 
+  def load_artists(file)
+    new_artist_attrs = FileIO.load_artists(file)
+    new_artist_attrs.each do |attributes|
+      add_artist(attributes)
+    end
+  end
+
   def add_photograph(attributes)
     new_photo = Photograph.new(attributes)
     @photographs << new_photo

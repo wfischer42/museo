@@ -187,4 +187,11 @@ class CuratorTest < Minitest::Test
     assert_equal 4, @curator.photographs.length
     assert_equal "Identical Twins, Roselle, New Jersey", @curator.photographs[2].name
   end
+
+  def test_it_can_load_artists_from_csv_file
+    @curator.load_artists('./data/artists.csv')
+    assert @curator.artists.all? {|artist| artist.class == Artist}
+    assert_equal 6, @curator.artists.length
+    assert_equal "Diane Arbus", @curator.artists[2].name
+  end
 end
